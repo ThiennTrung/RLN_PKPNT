@@ -14,16 +14,21 @@
             --warning-bg: #fff7ed;
             --warning-text: #9a3412;
             --warning-border: #fdba74;
+            --danger-red: #dc2626;
         }
 
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-page); color: var(--text-main); margin: 0; padding: 20px 40px; }
         .container { max-width: 1300px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         
-        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 30px; }
+        header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 30px; }
         h1 { margin: 0; font-size: 24px; color: #0f172a; }
         
+        /* Version & Date Info in Header */
+        .release-meta { margin-top: 10px; font-size: 16px; font-weight: bold; color: var(--danger-red); }
+        .release-meta span { margin-right: 25px; }
+
         /* Search Box */
-        .search-container { position: relative; }
+        .search-container { position: relative; margin-top: 5px; }
         #searchInput { padding: 12px 15px 12px 40px; border: 2px solid var(--border-color); border-radius: 10px; width: 350px; outline: none; transition: 0.3s; font-size: 14px; }
         #searchInput:focus { border-color: var(--primary-uat); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
         .search-icon { position: absolute; left: 15px; top: 13px; color: #94a3b8; font-size: 18px; }
@@ -46,13 +51,11 @@
         tr:nth-child(even) { background-color: #fafafa; }
         tr:hover { background-color: #f1f5f9; }
 
-
-        /* --- CHỈ CĂN GIỮ 3 CỘT ĐẦU --- */
-        table th:nth-child(1), table td:nth-child(1),
-        table th:nth-child(2), table td:nth-child(2),
-        table th:nth-child(3), table td:nth-child(3) {
+        /* Căn giữa cột STT */
+        table th:nth-child(1), table td:nth-child(1) {
             text-align: center;
         }
+
         /* Jira Link Style */
         .jira-link { 
             display: inline-block; background: #e0f2fe; color: #0369a1; padding: 4px 8px; 
@@ -60,24 +63,15 @@
         }
         .jira-link:hover { background: #bae6fd; color: #075985; text-decoration: underline; }
         
-        /* Footer Warning Box */
         .footer-warning {
-            margin-top: 30px;
-            padding: 15px 20px;
-            background-color: var(--warning-bg);
-            border: 1px solid var(--warning-border);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            color: var(--warning-text);
+            margin-top: 30px; padding: 15px 20px; background-color: var(--warning-bg);
+            border: 1px solid var(--warning-border); border-radius: 8px; display: flex;
+            align-items: center; color: var(--warning-text);
         }
         .warning-icon { font-size: 22px; margin-right: 15px; }
         .warning-text { font-weight: 600; font-size: 15px; }
 
         .no-result { display: none; text-align: center; padding: 30px; color: #94a3b8; font-style: italic; }
-        
-        /* Highlight date column for clarity */
-        .date-col { color: #64748b; font-weight: 500; white-space: nowrap; }
     </style>
 </head>
 <body>
@@ -87,10 +81,14 @@
         <div>
             <h1>RELEASE NOTES</h1>
             <div style="color: #64748b; font-size: 13px; margin-top: 5px;">Thông tin cập nhật hệ thống HIS</div>
+            <div class="release-meta">
+                <span>Version: <span id="display-version">v1.1.2.72</span></span>
+                <span>Ngày cập nhật: <span id="display-date">04/03/2026</span></span>
+            </div>
         </div>
         <div class="search-container">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Tìm theo Ngày, Jira, Nội dung...">
+            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Tìm theo Jira, Nội dung...">
         </div>
     </header>
 
@@ -103,32 +101,25 @@
         <table id="uatTable">
             <thead>
                 <tr>
-                    <th style="width: 40px;">STT</th>
-                    <th style="width: 90px;">Version</th>
-                    <th style="width: 130px;">Ngày cập nhật</th>
+                    <th style="width: 50px;">STT</th>
                     <th>Nội dung thay đổi</th>
-                    <th style="width: 200px;">Jira Ticket</th>
+                    <th style="width: 250px;">Jira Ticket</th>
                     <th>Ghi chú</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td><b>v1.1.2.72</b></td>
-                    <td class="date-col">04/03/2026</td>
                     <td>Bổ sung thanh tìm kiếm cho màn hình Danh mục đối tượng - dịch vụ (ETT04)</td>
                     <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-229" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-229</a></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td><b>v1.1.2.72</b></td>
-                    <td class="date-col">04/03/2026</td>
                     <td>Tổng hợp lỗi và chỉnh sửa - Luồng tạm ứng khám bệnh</td>
                     <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-217" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-217</a></td>
                     <td></td>
                 </tr>
-				
             </tbody>
         </table>
     </div>
@@ -137,67 +128,51 @@
         <table id="prodTable">
             <thead>
                 <tr>
-                    <th style="width: 40px;">STT</th>
-                    <th style="width: 90px;">Version</th>
-                    <th style="width: 130px;">Ngày cập nhật</th>
+                    <th style="width: 50px;">STT</th>
                     <th>Nội dung thay đổi</th>
-                    <th style="width: 200px;">Jira Ticket</th>
+                    <th style="width: 250px;">Jira Ticket</th>
                     <th>Ghi chú</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td><b>v1.1.2.51</b></td>
-                    <td class="date-col">04/03/2026</td>
                     <td>(PRO) Chỉnh sửa báo cáo tổng tháng (BCTTLK0B00001) để tìm kiếm theo ngày tháng</td>
                     <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-234" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-234</a></td>
                     <td></td>
                 </tr>
 				 <tr>
                     <td>2</td>
-                     <td><b>v1.1.2.51</b></td>
-                    <td class="date-col">04/03/2026</td>
                     <td>Bổ sung thanh tìm kiếm cho màn hình Danh mục đối tượng - dịch vụ (ETT04)</td>
                     <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-229" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-229</a></td>
                     <td></td>
                 </tr>
 				 <tr>
                     <td>3</td>
-                     <td><b>v1.1.2.51</b></td>
-                    <td class="date-col">04/03/2026</td>
                     <td>(PRO) Kiểm tra nút mở danh sách số thứ tự hàng đợi ở màn hình xét nghiệm (LIS12)</td>
                     <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-216" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-216</a></td>
                     <td></td>
                 </tr>
 				<tr>
                     <td>4</td>
-                     <td><b>v1.1.2.51</b></td>
-                    <td class="date-col">04/03/2026</td>
                     <td>Cập nhật luồng tính năng tạm ứng ngoại trú</td>
                     <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-212" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-212</a></td>
                     <td>Pending, tắt tick yêu cầu tạm ứng ở tiếp nhận</td>
                 </tr>
 				 <tr>
                     <td>5</td>
-                     <td><b>v1.1.2.51</b></td>
-                    <td class="date-col">04/03/2026</td>
                     <td>Tổng hợp lỗi và chỉnh sửa - Luồng tạm ứng khám bệnh</td>
                     <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-217" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-217</a></td>
                     <td></td>
                 </tr>
 				 <tr>
                     <td>6</td>
-                     <td><b>v1.1.2.51</b></td>
-                    <td class="date-col">04/03/2026</td>
                     <td>(PRO) Ràng buộc (ký hiệu)Tạo quyển biên lai / hóa đơn (BIL02)</td>
                     <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-210" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-210</a></td>
                     <td></td>
                 </tr>
 				 <tr>
                     <td>7</td>
-                     <td><b>v1.1.2.51</b></td>
-                    <td class="date-col">04/03/2026</td>
                     <td>(UAT) thêm mới chức năng cho màn hình PHA58 Danh mục nhà cung cấp</td>
                     <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-207" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-207</a></td>
                     <td></td>
@@ -206,7 +181,7 @@
         </table>
     </div>
     
-    <div id="noResult" class="no-result">Không tìm thấy thông tin phù hợp với từ khóa...</div>
+    <div id="noResult" class="no-result">Không tìm thấy thông tin phù hợp...</div>
 
     <div class="footer-warning">
         <div class="warning-icon">⚠️</div>
@@ -217,7 +192,12 @@
 </div>
 
 <script>
-    // 1. Chuyển đổi Tab
+    // Dữ liệu cấu hình cho từng môi trường
+    const releaseData = {
+        'uat-content': { version: 'v1.1.2.72', date: '04/03/2026' },
+        'prod-content': { version: 'v1.1.2.51', date: '04/03/2026' }
+    };
+
     function showTab(evt, tabId) {
         const contents = document.querySelectorAll('.content');
         contents.forEach(c => c.classList.remove('active'));
@@ -227,28 +207,25 @@
         document.getElementById(tabId).classList.add('active');
         evt.currentTarget.classList.add('active');
         
-        // Reset tìm kiếm khi đổi tab
+        // Cập nhật Version và Ngày cập nhật lên Header
+        document.getElementById('display-version').innerText = releaseData[tabId].version;
+        document.getElementById('display-date').innerText = releaseData[tabId].date;
+
         document.getElementById('searchInput').value = '';
         filterTable(); 
     }
 
-    // 2. Hàm lọc nội dung (Tìm kiếm trên mọi cột bao gồm cột Ngày)
     function filterTable() {
         const input = document.getElementById("searchInput");
         const filter = input.value.toUpperCase();
-        
-        // Luôn lấy bảng trong tab đang hiển thị
         const activeContent = document.querySelector('.content.active');
         const table = activeContent.querySelector("table");
         const tr = table.getElementsByTagName("tr");
         let visibleCount = 0;
 
-        // Quét từng dòng (bỏ qua header i=0)
         for (let i = 1; i < tr.length; i++) {
             let found = false;
             const td = tr[i].getElementsByTagName("td");
-            
-            // Quét từng ô trong dòng
             for (let j = 0; j < td.length; j++) {
                 if (td[j]) {
                     const txtValue = td[j].textContent || td[j].innerText;
@@ -258,22 +235,10 @@
                     }
                 }
             }
-            
-            if (found) {
-                tr[i].style.display = "";
-                visibleCount++;
-            } else {
-                tr[i].style.display = "none";
-            }
+            if (found) { tr[i].style.display = ""; visibleCount++; }
+            else { tr[i].style.display = "none"; }
         }
-        
-        // Hiển thị thông báo khi không tìm thấy kết quả
-        const noRes = document.getElementById("noResult");
-        if (visibleCount === 0 && filter !== "") {
-            noRes.style.display = "block";
-        } else {
-            noRes.style.display = "none";
-        }
+        document.getElementById("noResult").style.display = (visibleCount === 0 && filter !== "") ? "block" : "none";
     }
 </script>
 
