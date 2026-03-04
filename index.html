@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Release Note - Searchable by Date</title>
+    <style>
+        :root {
+            --primary-uat: #2563eb;
+            --primary-prod: #10b981;
+            --bg-page: #f8fafc;
+            --text-main: #1e293b;
+            --border-color: #e2e8f0;
+            --warning-bg: #fff7ed;
+            --warning-text: #9a3412;
+            --warning-border: #fdba74;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-page); color: var(--text-main); margin: 0; padding: 20px 40px; }
+        .container { max-width: 1300px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { margin: 0; font-size: 24px; color: #0f172a; }
+        
+        /* Search Box */
+        .search-container { position: relative; }
+        #searchInput { padding: 12px 15px 12px 40px; border: 2px solid var(--border-color); border-radius: 10px; width: 350px; outline: none; transition: 0.3s; font-size: 14px; }
+        #searchInput:focus { border-color: var(--primary-uat); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+        .search-icon { position: absolute; left: 15px; top: 13px; color: #94a3b8; font-size: 18px; }
+
+        /* Tabs Styling */
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        .tab-btn { padding: 12px 24px; border: none; background: none; cursor: pointer; font-weight: 600; color: #94a3b8; font-size: 16px; transition: 0.3s; position: relative; }
+        .tab-btn.active.uat { color: var(--primary-uat); }
+        .tab-btn.active.uat::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--primary-uat); }
+        .tab-btn.active.prod { color: var(--primary-prod); }
+        .tab-btn.active.prod::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--primary-prod); }
+
+        .content { display: none; }
+        .content.active { display: block; }
+
+        /* Table Styling */
+        table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 20px; }
+        th { background: #f8fafc; color: #475569; font-weight: 600; text-align: left; padding: 12px; border: 1px solid var(--border-color); position: sticky; top: 0; }
+        td { padding: 12px; border: 1px solid var(--border-color); vertical-align: top; }
+        tr:nth-child(even) { background-color: #fafafa; }
+        tr:hover { background-color: #f1f5f9; }
+
+        /* Jira Link Style */
+        .jira-link { 
+            display: inline-block; background: #e0f2fe; color: #0369a1; padding: 4px 8px; 
+            border-radius: 4px; font-weight: bold; text-decoration: none; font-size: 12px; transition: 0.2s;
+        }
+        .jira-link:hover { background: #bae6fd; color: #075985; text-decoration: underline; }
+        
+        /* Footer Warning Box */
+        .footer-warning {
+            margin-top: 30px;
+            padding: 15px 20px;
+            background-color: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            color: var(--warning-text);
+        }
+        .warning-icon { font-size: 22px; margin-right: 15px; }
+        .warning-text { font-weight: 600; font-size: 15px; }
+
+        .no-result { display: none; text-align: center; padding: 30px; color: #94a3b8; font-style: italic; }
+        
+        /* Highlight date column for clarity */
+        .date-col { color: #64748b; font-weight: 500; white-space: nowrap; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>RELEASE NOTES SUMMARY</h1>
+            <div style="color: #64748b; font-size: 13px; margin-top: 5px;">Tra cứu thông tin cập nhật hệ thống</div>
+        </div>
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Tìm theo Ngày (dd/mm), Jira, Nội dung...">
+        </div>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active uat" onclick="showTab(event, 'uat-content')">Môi trường UAT</button>
+        <button class="tab-btn prod" onclick="showTab(event, 'prod-content')">Môi trường PRODUCT</button>
+    </div>
+
+    <div id="uat-content" class="content active">
+        <table id="uatTable">
+            <thead>
+                <tr>
+                    <th style="width: 40px;">STT</th>
+                    <th style="width: 90px;">Version</th>
+                    <th style="width: 130px;">Ngày cập nhật</th>
+                    <th>Nội dung thay đổi</th>
+                    <th style="width: 200px;">Jira Ticket</th>
+                    <th>Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><b>v1.1.2.68</b></td>
+                    <td class="date-col">04/03/2026</td>
+                    <td>Bổ sung thanh tìm kiếm cho màn hình Danh mục đối tượng - dịch vụ (ETT04)</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-229" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-229</a></td>
+                    <td>Cần test lại cache</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><b>v1.1.2.69</b></td>
+                    <td class="date-col">05/03/2026</td>
+                    <td>Sửa lỗi tính toán công nợ trong báo cáo quý</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-312" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-312</a></td>
+                    <td>Đã duyệt bởi QA</td>
+                </tr>
+				 <tr>
+                    <td>2</td>
+                    <td><b>v1.1.2.69</b></td>
+                    <td class="date-col">05/03/2026</td>
+                    <td>Sửa lỗi tính toán công nợ trong báo cáo quý</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-312" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-312</a></td>
+                    <td>Đã duyệt bởi QA</td>
+                </tr>
+				 <tr>
+                    <td>2</td>
+                    <td><b>v1.1.2.69</b></td>
+                    <td class="date-col">05/03/2026</td>
+                    <td>Sửa lỗi tính toán công nợ trong báo cáo quý</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-312" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-312</a></td>
+                    <td>Đã duyệt bởi QA</td>
+                </tr>
+				 <tr>
+                    <td>2</td>
+                    <td><b>v1.1.2.69</b></td>
+                    <td class="date-col">05/03/2026</td>
+                    <td>Sửa lỗi tính toán công nợ trong báo cáo quý</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-312" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-312</a></td>
+                    <td>Đã duyệt bởi QA</td>
+                </tr>
+				 <tr>
+                    <td>2</td>
+                    <td><b>v1.1.2.69</b></td>
+                    <td class="date-col">05/03/2026</td>
+                    <td>Sửa lỗi tính toán công nợ trong báo cáo quý</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-312" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-312</a></td>
+                    <td>Đã duyệt bởi QA</td>
+                </tr>
+				 <tr>
+                    <td>2</td>
+                    <td><b>v1.1.2.69</b></td>
+                    <td class="date-col">05/03/2026</td>
+                    <td>Sửa lỗi tính toán công nợ trong báo cáo quý</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-312" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-312</a></td>
+                    <td>Đã duyệt bởi QA</td>
+                </tr>
+				 <tr>
+                    <td>2</td>
+                    <td><b>v1.1.2.69</b></td>
+                    <td class="date-col">05/03/2026</td>
+                    <td>Sửa lỗi tính toán công nợ trong báo cáo quý</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-312" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-312</a></td>
+                    <td>Đã duyệt bởi QA</td>
+                </tr>
+				 <tr>
+                    <td>2</td>
+                    <td><b>v1.1.2.69</b></td>
+                    <td class="date-col">05/03/2026</td>
+                    <td>Sửa lỗi tính toán công nợ trong báo cáo quý</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-312" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-312</a></td>
+                    <td>Đã duyệt bởi QA</td>
+                </tr>
+				 <tr>
+                    <td>2</td>
+                    <td><b>v1.1.2.69</b></td>
+                    <td class="date-col">05/03/2026</td>
+                    <td>Sửa lỗi tính toán công nợ trong báo cáo quý</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-312" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-312</a></td>
+                    <td>Đã duyệt bởi QA</td>
+                </tr>
+				 <tr>
+                    <td>2</td>
+                    <td><b>v1.1.2.69</b></td>
+                    <td class="date-col">05/03/2026</td>
+                    <td>Sửa lỗi tính toán công nợ trong báo cáo quý</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-312" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-312</a></td>
+                    <td>Đã duyệt bởi QA</td>
+                </tr>
+				
+            </tbody>
+        </table>
+    </div>
+
+    <div id="prod-content" class="content">
+        <table id="prodTable">
+            <thead>
+                <tr>
+                    <th style="width: 40px;">STT</th>
+                    <th style="width: 90px;">Version</th>
+                    <th style="width: 130px;">Ngày cập nhật</th>
+                    <th>Nội dung thay đổi</th>
+                    <th style="width: 200px;">Jira Ticket</th>
+                    <th>Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><b>v1.1.2.68</b></td>
+                    <td class="date-col">04/03/2026</td>
+                    <td>Bổ sung thanh tìm kiếm cho màn hình Danh mục đối tượng - dịch vụ (ETT04)</td>
+                    <td><a href="https://jira.yourcompany.com/browse/PKPNT_HIS_2025_PM-229" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-229</a></td>
+                    <td>Hotfix</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="noResult" class="no-result">Không tìm thấy thông tin phù hợp với từ khóa...</div>
+
+    <div class="footer-warning">
+        <div class="warning-icon">⚠️</div>
+        <div class="warning-text">
+            WARNING: Cần người dùng thao tác lại (đăng nhập lại, clear cache UI) để đảm bảo các thay đổi được áp dụng chính xác.
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Chuyển đổi Tab
+    function showTab(evt, tabId) {
+        const contents = document.querySelectorAll('.content');
+        contents.forEach(c => c.classList.remove('active'));
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(b => b.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+        
+        // Reset tìm kiếm khi đổi tab
+        document.getElementById('searchInput').value = '';
+        filterTable(); 
+    }
+
+    // 2. Hàm lọc nội dung (Tìm kiếm trên mọi cột bao gồm cột Ngày)
+    function filterTable() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toUpperCase();
+        
+        // Luôn lấy bảng trong tab đang hiển thị
+        const activeContent = document.querySelector('.content.active');
+        const table = activeContent.querySelector("table");
+        const tr = table.getElementsByTagName("tr");
+        let visibleCount = 0;
+
+        // Quét từng dòng (bỏ qua header i=0)
+        for (let i = 1; i < tr.length; i++) {
+            let found = false;
+            const td = tr[i].getElementsByTagName("td");
+            
+            // Quét từng ô trong dòng
+            for (let j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    const txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (found) {
+                tr[i].style.display = "";
+                visibleCount++;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+        
+        // Hiển thị thông báo khi không tìm thấy kết quả
+        const noRes = document.getElementById("noResult");
+        if (visibleCount === 0 && filter !== "") {
+            noRes.style.display = "block";
+        } else {
+            noRes.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
