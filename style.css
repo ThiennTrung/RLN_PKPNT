@@ -1,0 +1,125 @@
+
+        :root {
+            --primary-uat: #2563eb;
+            --primary-prod: #10b981;
+            --bg-page: #f8fafc;
+            --text-main: #1e293b;
+            --border-color: #e2e8f0;
+            --warning-bg: #fff7ed;
+            --warning-text: #9a3412;
+            --warning-border: #fdba74;
+            --danger-red: #dc2626;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-page); color: var(--text-main); margin: 0; padding: 20px 40px; }
+        .container { max-width: 1300px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        
+        header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { margin: 0; font-size: 24px; color: #0f172a; }
+        
+        /* Version & Date Info in Header */
+        .release-meta { margin-top: 10px; font-size: 16px; font-weight: bold; color: var(--danger-red); }
+        .release-meta span { margin-right: 25px; }
+
+        /* Search Box */
+        .search-container { position: relative; margin-top: 5px; }
+        #searchInput { padding: 12px 15px 12px 40px; border: 2px solid var(--border-color); border-radius: 10px; width: 350px; outline: none; transition: 0.3s; font-size: 14px; }
+        #searchInput:focus { border-color: var(--primary-uat); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+        .search-icon { position: absolute; left: 15px; top: 13px; color: #94a3b8; font-size: 18px; }
+
+        /* Tabs Styling */
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        .tab-btn { padding: 12px 24px; border: none; background: none; cursor: pointer; font-weight: 600; color: #94a3b8; font-size: 16px; transition: 0.3s; position: relative; }
+        .tab-btn.active.uat { color: var(--primary-uat); }
+        .tab-btn.active.uat::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--primary-uat); }
+        .tab-btn.active.prod { color: var(--primary-prod); }
+        .tab-btn.active.prod::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--primary-prod); }
+
+        .content { display: none; }
+        .content.active { display: block; }
+
+        /* Table Styling */
+        table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 20px; }
+        th { background: #f8fafc; color: #475569; font-weight: 600; text-align: left; padding: 12px; border: 1px solid var(--border-color); position: sticky; top: 0; }
+        td { padding: 12px; border: 1px solid var(--border-color); vertical-align: top; }
+        tr:nth-child(even) { background-color: #fafafa; }
+        tr:hover { background-color: #f1f5f9; }
+
+        /* Căn giữa cột STT */
+        table th:nth-child(1), table td:nth-child(1) {
+            text-align: center;
+        }
+
+        /* Jira Link Style */
+        .jira-link { 
+            display: inline-block; background: #e0f2fe; color: #0369a1; padding: 4px 8px; 
+            border-radius: 4px; font-weight: bold; text-decoration: none; font-size: 12px; transition: 0.2s;
+        }
+        .jira-link:hover { background: #bae6fd; color: #075985; text-decoration: underline; }
+        
+        .footer-warning {
+            margin-top: 30px; padding: 15px 20px; background-color: var(--warning-bg);
+            border: 1px solid var(--warning-border); border-radius: 8px; display: flex;
+            align-items: center; color: var(--warning-text);
+        }
+        .warning-icon { font-size: 22px; margin-right: 15px; }
+        .warning-text { font-weight: 600; font-size: 15px; }
+
+        .no-result { display: none; text-align: center; padding: 30px; color: #94a3b8; font-style: italic; }
+        :root {
+        --primary-color: #007bff;
+        --border-color: #d1d5db; /* Màu xám nhạt hơn */
+        --text-color: #374151;
+        }
+
+        .select-wrapper {
+            display: flex;          /* Cho nhãn và combo nằm trên cùng 1 hàng */
+            align-items: center;    /* Căn giữa theo chiều dọc */
+            gap: 10px;              /* Khoảng cách giữa nhãn và combo */
+            margin-bottom: 15px;
+            font-family: sans-serif;
+        }
+        .custom-select-container {
+            position: relative;
+            width: 160px;           /* Độ rộng nhỏ hơn (thay vì 250px) */
+        }
+
+        #versionSelect {
+            appearance: none;
+            -webkit-appearance: none;
+            
+            width: 100%;
+            padding: 6px 30px 6px 10px; /* Padding dọc chỉ 6px để combo dẹt lại */
+            font-size: 13px;            /* Font chữ nhỏ hơn */
+            line-height: 1.2;
+            border: 1px solid var(--border-color); /* Viền mảnh hơn (1px) */
+            border-radius: 4px;         /* Bo góc nhẹ nhàng */
+            background-color: #fff;
+            color: var(--text-color);
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        #versionSelect:hover {
+            border-color: #9ca3af;
+        }
+
+        #versionSelect:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+        }
+
+        /* Mũi tên nhỏ hơn */
+        .custom-arrow {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid #6b7280; 
+            pointer-events: none;
+        }

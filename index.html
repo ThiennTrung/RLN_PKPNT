@@ -4,75 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Release Note - PK PNT</title>
-    <style>
-        :root {
-            --primary-uat: #2563eb;
-            --primary-prod: #10b981;
-            --bg-page: #f8fafc;
-            --text-main: #1e293b;
-            --border-color: #e2e8f0;
-            --warning-bg: #fff7ed;
-            --warning-text: #9a3412;
-            --warning-border: #fdba74;
-            --danger-red: #dc2626;
-        }
-
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-page); color: var(--text-main); margin: 0; padding: 20px 40px; }
-        .container { max-width: 1300px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        
-        header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 30px; }
-        h1 { margin: 0; font-size: 24px; color: #0f172a; }
-        
-        /* Version & Date Info in Header */
-        .release-meta { margin-top: 10px; font-size: 16px; font-weight: bold; color: var(--danger-red); }
-        .release-meta span { margin-right: 25px; }
-
-        /* Search Box */
-        .search-container { position: relative; margin-top: 5px; }
-        #searchInput { padding: 12px 15px 12px 40px; border: 2px solid var(--border-color); border-radius: 10px; width: 350px; outline: none; transition: 0.3s; font-size: 14px; }
-        #searchInput:focus { border-color: var(--primary-uat); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
-        .search-icon { position: absolute; left: 15px; top: 13px; color: #94a3b8; font-size: 18px; }
-
-        /* Tabs Styling */
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); }
-        .tab-btn { padding: 12px 24px; border: none; background: none; cursor: pointer; font-weight: 600; color: #94a3b8; font-size: 16px; transition: 0.3s; position: relative; }
-        .tab-btn.active.uat { color: var(--primary-uat); }
-        .tab-btn.active.uat::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--primary-uat); }
-        .tab-btn.active.prod { color: var(--primary-prod); }
-        .tab-btn.active.prod::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--primary-prod); }
-
-        .content { display: none; }
-        .content.active { display: block; }
-
-        /* Table Styling */
-        table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 20px; }
-        th { background: #f8fafc; color: #475569; font-weight: 600; text-align: left; padding: 12px; border: 1px solid var(--border-color); position: sticky; top: 0; }
-        td { padding: 12px; border: 1px solid var(--border-color); vertical-align: top; }
-        tr:nth-child(even) { background-color: #fafafa; }
-        tr:hover { background-color: #f1f5f9; }
-
-        /* Căn giữa cột STT */
-        table th:nth-child(1), table td:nth-child(1) {
-            text-align: center;
-        }
-
-        /* Jira Link Style */
-        .jira-link { 
-            display: inline-block; background: #e0f2fe; color: #0369a1; padding: 4px 8px; 
-            border-radius: 4px; font-weight: bold; text-decoration: none; font-size: 12px; transition: 0.2s;
-        }
-        .jira-link:hover { background: #bae6fd; color: #075985; text-decoration: underline; }
-        
-        .footer-warning {
-            margin-top: 30px; padding: 15px 20px; background-color: var(--warning-bg);
-            border: 1px solid var(--warning-border); border-radius: 8px; display: flex;
-            align-items: center; color: var(--warning-text);
-        }
-        .warning-icon { font-size: 22px; margin-right: 15px; }
-        .warning-text { font-weight: 600; font-size: 15px; }
-
-        .no-result { display: none; text-align: center; padding: 30px; color: #94a3b8; font-style: italic; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -82,8 +14,14 @@
             <h1>RELEASE NOTES</h1>
             <div style="color: #64748b; font-size: 13px; margin-top: 5px;">Thông tin cập nhật hệ thống HIS</div>
             <div class="release-meta">
-                <span>Version: <span id="display-version">v1.1.2.72</span></span>
-                <span>Ngày cập nhật: <span id="display-date">04/03/2026</span></span>
+                <div class="select-wrapper">
+                    <label for="versionSelect" class="select-label">Phiên bản</label>
+                    <div class="custom-select-container">
+                        <select id="versionSelect" onchange="handleVersionChange()"></select>
+                    </div>
+                    <!-- <span>Ngày cập nhật: <span id="display-date">04/03/2026</span></span> -->
+                    <span id="updateTimeDisplay"></span>
+                </div>   
             </div>
         </div>
         <div class="search-container">
@@ -107,19 +45,7 @@
                     <th>Ghi chú</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Bổ sung thanh tìm kiếm cho màn hình Danh mục đối tượng - dịch vụ (ETT04)</td>
-                    <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-229" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-229</a></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Tổng hợp lỗi và chỉnh sửa - Luồng tạm ứng khám bệnh</td>
-                    <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-217" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-217</a></td>
-                    <td></td>
-                </tr>
+            <tbody id="tableUATBody">
             </tbody>
         </table>
     </div>
@@ -134,64 +60,12 @@
                     <th>Ghi chú</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>(PRO) Chỉnh sửa báo cáo tổng tháng (BCTTLK0B00001) để tìm kiếm theo ngày tháng</td>
-                    <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-234" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-234</a></td>
-                    <td></td>
-                </tr>
-				 <tr>
-                    <td>2</td>
-                    <td>Bổ sung thanh tìm kiếm cho màn hình Danh mục đối tượng - dịch vụ (ETT04)</td>
-                    <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-229" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-229</a></td>
-                    <td></td>
-                </tr>
-				 <tr>
-                    <td>3</td>
-                    <td>(PRO) Kiểm tra nút mở danh sách số thứ tự hàng đợi ở màn hình xét nghiệm (LIS12)</td>
-                    <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-216" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-216</a></td>
-                    <td></td>
-                </tr>
-				<tr>
-                    <td>4</td>
-                    <td>Cập nhật luồng tính năng tạm ứng ngoại trú</td>
-                    <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-212" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-212</a></td>
-                    <td>Pending, tắt tick yêu cầu tạm ứng ở tiếp nhận</td>
-                </tr>
-				 <tr>
-                    <td>5</td>
-                    <td>Tổng hợp lỗi và chỉnh sửa - Luồng tạm ứng khám bệnh</td>
-                    <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-217" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-217</a></td>
-                    <td></td>
-                </tr>
-				 <tr>
-                    <td>6</td>
-                    <td>(PRO) Ràng buộc (ký hiệu)Tạo quyển biên lai / hóa đơn (BIL02)</td>
-                    <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-210" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-210</a></td>
-                    <td></td>
-                </tr>
-				 <tr>
-                    <td>7</td>
-                    <td>(UAT) thêm mới chức năng cho màn hình PHA58 Danh mục nhà cung cấp</td>
-                    <td><a href="https://jira.fis.com.vn/browse/PKPNT_HIS_2025_PM-207" target="_blank" class="jira-link">PKPNT_HIS_2025_PM-207</a></td>
-                    <td></td>
-                </tr>
+            <tbody id="tablePROBody">
             </tbody>
         </table>
     </div>
     
     <div id="noResult" class="no-result">Không tìm thấy thông tin phù hợp...</div>
-
-
-	<label for="fruits">Chọn một loại quả:</label>
-	<select name="fruits" id="fruits">
-	  <option value="apple">Táo</option>
-	  <option value="banana">Chuối</option>
-	  <option value="orange">Cam</option>
-	  <option value="mango">Xoài</option>
-	</select>
-
     <div class="footer-warning">
         <div class="warning-icon">⚠️</div>
         <div class="warning-text">
@@ -199,59 +73,9 @@
         </div>
     </div>
 	
-	<script src="script.js"></script>
+
 </div>
 
-<script>
-    // Dữ liệu cấu hình cho từng môi trường
-    const releaseData = {
-        'uat-content': { version: 'v1.1.2.72', date: '04/03/2026' },
-        'prod-content': { version: 'v1.1.2.51', date: '04/03/2026' }
-    };
-
-    function showTab(evt, tabId) {
-        const contents = document.querySelectorAll('.content');
-        contents.forEach(c => c.classList.remove('active'));
-        const buttons = document.querySelectorAll('.tab-btn');
-        buttons.forEach(b => b.classList.remove('active'));
-
-        document.getElementById(tabId).classList.add('active');
-        evt.currentTarget.classList.add('active');
-        
-        // Cập nhật Version và Ngày cập nhật lên Header
-        document.getElementById('display-version').innerText = releaseData[tabId].version;
-        document.getElementById('display-date').innerText = releaseData[tabId].date;
-
-        document.getElementById('searchInput').value = '';
-        filterTable(); 
-    }
-
-    function filterTable() {
-        const input = document.getElementById("searchInput");
-        const filter = input.value.toUpperCase();
-        const activeContent = document.querySelector('.content.active');
-        const table = activeContent.querySelector("table");
-        const tr = table.getElementsByTagName("tr");
-        let visibleCount = 0;
-
-        for (let i = 1; i < tr.length; i++) {
-            let found = false;
-            const td = tr[i].getElementsByTagName("td");
-            for (let j = 0; j < td.length; j++) {
-                if (td[j]) {
-                    const txtValue = td[j].textContent || td[j].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        found = true;
-                        break;
-                    }
-                }
-            }
-            if (found) { tr[i].style.display = ""; visibleCount++; }
-            else { tr[i].style.display = "none"; }
-        }
-        document.getElementById("noResult").style.display = (visibleCount === 0 && filter !== "") ? "block" : "none";
-    }
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
