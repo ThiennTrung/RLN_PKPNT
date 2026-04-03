@@ -90,6 +90,11 @@
                     "NOIDUNG" : "Sửa phiếu chỉ định dịch vụ (OPD18P00501_1). thêm cột số tiền BHYT chi trả (BHYT) và cột số tiền Bệnh nhân chi trả (BN)",
                     "JIRA_TICKET": "",
                     "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[RPT43 - Báo cáo theo TT12] Thêm màn hình báo cáo thông tư 12, thêm 2 mẫu in BHYT 01, 02",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
                 }
             ]
         }
