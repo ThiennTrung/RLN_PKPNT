@@ -66,6 +66,32 @@
                     "GHICHU": ""
                 }
             ]
+        },
+        {
+            "VERSION": "v1.1.2.75",
+            "UPDATETIME": "03/04/2026",
+            "CONTENTS" : [
+                {
+                    "NOIDUNG" : "[PHA14 - Xuất thuốc BHYT] Thay đổi Report khi xem phiếu ở màn hình Xuất thuốc BHYT (chuyển từ PHA09P01501 -> PHA14P00001)",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHA22 - Xuất sử dụng thuốc/VTYT] Ẩn phương pháp xuất (Nhập trước xuất trước, nhập sau xuất trước), Ẩn giá trị mục đích xuất, mục đích xuất fico",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHA05 - Nhập NCC] Bỏ ràng buộc bắt nhập ở Diễn giải",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "Sửa phiếu chỉ định dịch vụ (OPD18P00501_1). thêm cột số tiền BHYT chi trả (BHYT) và cột số tiền Bệnh nhân chi trả (BN)",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                }
+            ]
         }
     ],
     "PRO" : [
