@@ -140,6 +140,87 @@
                     "GHICHU": ""
                 }
             ]
-        }  
+        },
+        {
+            "VERSION": "v1.1.2.52",
+            "UPDATETIME": "06/04/2026",
+            "CONTENTS" : [
+                {
+                    "NOIDUNG" : "Sửa đổi chức năng xóa trong màn hình Danh mục nhà cung cấp (PHA58)",
+                    "JIRA_TICKET": "PKPNT_HIS_2025_PM-238",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "Bổ sung cột thể hiện đã nhập VTYT cho người bệnh ở màn hình danh sách thủ thuật (OPD23)",
+                    "JIRA_TICKET": "PKPNT_HIS_2025_PM-236",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "Chỉnh sửa thông báo khi đẩy hóa đơn không thành công ở màn hình chuyển hóa đơn điện tử (BIL99) và bổ sung trường cho số hộ chiếu",
+                    "JIRA_TICKET": "PKPNT_HIS_2025_PM-239",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHA09 - Xuất dược nội bộ] Bỏ ràng buộc người giao trùng người nhận",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[BIL99 - Chuyển hóa đơn điện tử] Thêm cột BHYT chi trả, người bệnh phải thanh toán, thay đổi giá trị chuyển hóa đơn bằng giá trị người bệnh phải thanh toán ",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHA05 - Nhập NCC] Load quy cách đóng gói, đơn giá thầu, số visa khi thêm dược ",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHATH - Quản lý thầu] Bỏ phân trang, bỏ trường nhập thông tin thầu 130",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[SVC01 - Danh mục dịch vụ] Thêm màu đỏ các dịch vụ đã tạm ngưng",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                 {
+                    "NOIDUNG" : "[BIL09 - XN BHYT] Điều chỉnh tường minh câu thông báo khi hướng giải quyết khám bệnh không hợp lệ. Điều chỉnh thành: Bệnh nhân chưa hoàn tất đợt khám bệnh, hướng giải quyết [.....]",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHA14 - Xuất thuốc BHYT] Thay đổi Report khi xem phiếu ở màn hình Xuất thuốc BHYT (chuyển từ PHA09P01501 -> PHA14P00001)",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHA22 - Xuất sử dụng thuốc/VTYT] Ẩn phương pháp xuất (Nhập trước xuất trước, nhập sau xuất trước), Ẩn giá trị mục đích xuất, mục đích xuất fico",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHA05 - Nhập NCC] Bỏ ràng buộc bắt nhập ở Diễn giải",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "Sửa phiếu chỉ định dịch vụ (OPD18P00501_1). thêm cột số tiền BHYT chi trả (BHYT) và cột số tiền Bệnh nhân chi trả (BN)",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[RPT43 - Báo cáo theo TT12] Thêm màn hình báo cáo thông tư 12, thêm 2 mẫu in BHYT 01, 02",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHA05 - Nhập NCC] Fix lỗi không clear cache tồn kho khi bỏ duyệt/xóa CT NCC",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                }
+            ]
+        }    
     ]
 }
