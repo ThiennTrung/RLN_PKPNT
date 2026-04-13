@@ -123,6 +123,22 @@
                     "GHICHU": ""
                 }
             ]
+        },
+        {
+            "VERSION": "v1.1.2.77",
+            "UPDATETIME": "13/04/2026",
+            "CONTENTS" : [
+                {
+                    "NOIDUNG" : "Điều chỉnh thời gian loading login",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHA05 - Nhập NCC] Fix chứng từ sai đơn giá vốn khi có giá trị quy đổi",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                }
+            ]
         }
     ],
     "PRO" : [
