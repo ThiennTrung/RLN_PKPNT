@@ -263,6 +263,42 @@
                     "GHICHU": ""
                 }
             ]
-        }    
+        },
+        {
+            "VERSION": "v1.1.2.53",
+            "UPDATETIME": "13/04/2026",
+            "CONTENTS" : [
+                 {
+                    "NOIDUNG" : "[PHA34 - Xác nhận phát thuốc BHYT] Bổ sung nút xem phiếu và in phiếu (PHA14P0001) \r\n - Thay đổi phím tắt nút lưu ở màn hình xuất thuốc BHYT bằng nút F2",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[OPD02 - Khám bệnh] Sửa lỗi user không phải bác sĩ không phải bác sĩ vẫn chỉnh sửa và lưu ca khám thành công",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[BIL99 - Chuyển HDDT] Chỉnh sửa dữ liệu gửi hddt cho đối tượng BHYT trong màn hình Chuyển hóa đơn điện tử",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[REG14 - Tiếp nhận] Default in hoa tên bệnh nhân khi quét CCCD",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "Điều chỉnh thời gian loading login",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                },
+                {
+                    "NOIDUNG" : "[PHA05 - Nhập NCC] Fix chứng từ sai đơn giá vốn khi có giá trị quy đổi",
+                    "JIRA_TICKET": "",
+                    "GHICHU": ""
+                }
+            ]
+        }
     ]
 }
